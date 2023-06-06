@@ -1,22 +1,24 @@
-import "./App.css"
-import HomePage from "./Home/HomePage"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Header from "./Components/header/Header"
-import Footer from "./Components/footer/Footer"
+import React, { useState } from "react";
+import './App.css';
+import { Login } from "./Login";
+import { Register } from "./Register";
+import HomePage from './components/HomePage'
 
 function App() {
+  const [currentForm, setCurrentForm] = useState('login');
+
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
+  }
+
   return (
-    <>
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-         
-        </Switch>
-       <Footer />
-      </Router>
-    </>
-  )
+    <div className="App">
+      {
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+      }
+    </div>
+  );
 }
 
-export default App
+
+export default App;
